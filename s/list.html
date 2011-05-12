@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>the mudhub</title>
+		<link href='/s/style.css' media='all' rel='stylesheet' type='text/css'/> 
+		<script src='/m/jQuery'></script>
+		<script>
+			var $ = require('jQuery');
+			
+			$(function() {
+				$('input').click(function() {
+					$(this).select();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class='menu'>
+			<nav>
+				<a href='/list'>list all modules</a>
+				<a href='/bin'>get the binary</a>
+			</nav>
+			<nav>
+				<a href='/style'>style guide</a>
+				<a href='mailto:m@ge.tt'>contact me</a>
+			</nav>
+		</div>
+		<div class='content'>
+			<header>
+				<h1><a href='/'>the mudhub</a></h1>
+				<i>micro modularize all your js</i>
+			</header>
+			<p>
+				the current available libraries through mudhub
+			</p>
+			<div class='indent'>
+				<section>
+					<h4><a href='/m/common'>common</a></h4>
+					<p>
+						the common library is a small module that contains useful functional stuff.<br>
+						this module also works with <a href='http://nodejs.org'>node.js</a>
+					</p>
+				</section>
+				<section>
+					<h4><a href='/m/ajax'>ajax</a></h4>
+					<p>
+						a small ajax module that also supports jsonp.
+					</p>
+				</section>
+				<section>
+					<h4><a href='/m/messaging'>messaging</a></h4>
+					<p>
+						a module to do cross-domain frame communication in all browsers without location polling
+					</p>
+				</section>
+			</div>
+			<p>
+				the list of third-party useful libraries that are also available through mudhub
+			</p>
+			<div class='indent'>
+				<section>
+					<h4><a href='/m/jQuery'>jQuery</a></h4>
+				</section>
+				<section>
+					<h4><a href='/m/jQuery'>Mootools</a></h4>
+				</section>
+				<section>
+					<h4><a href='/m/jQuery'>Dojo</a></h4>
+				</section>
+			</div>
+		</div>
+	</body>
+</html>

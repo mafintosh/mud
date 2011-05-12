@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>the mudhub</title>
+		<link href='/s/style.css' media='all' rel='stylesheet' type='text/css'/> 
+		<script src='/m/jQuery'></script>
+		<script>
+			var $ = require('jQuery');
+			
+			$(function() {
+				$('input').click(function() {
+					$(this).select();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class='menu'>
+			<nav>
+				<a href='/list'>list all modules</a>
+				<a href='/bin'>install it</a>
+			</nav>
+			<nav>
+				<a href='mailto:m@ge.tt'>contact me</a>
+			</nav>
+		</div>
+		<div class='content'>
+			<header>
+				<h1><a href='/'>the mudhub</a></h1>
+				<i>micro modularize all your js</i>
+			</header>
+			<section>
+				<p>
+					mudhub is a very basic package manager for browser-based javascript.<br>
+					it resolves <i>explicit</i> dependencies and other cool stuff.<br>
+					to load modules just specify them through an url:				
+				</p>
+			</section>
+			<section>
+				<input readonly value='http://mudhub.org/g/common,jQuery'> 
+				which loads the <a href='/g/common'>common</a> and <a href='/g/jQuery'>jQuery</a> modules
+			</section>
+			<section>
+				<p>
+					all modules loaded with the prefix /g/ are bound to global variables.<br>
+					modules can also be bound to a require function using the /m/ prefix				
+				</p>
+				<p>
+					the project is still very young and if you wanna help out or have some cool ideas don't 
+					hesitate to <a href='mailto:m@ge.tt'>contact me</a> - <a href='http://twitter.com/mafintosh'>@mafintosh</a>
+				</p>				
+			</section>
+		</div>
+	</body>
+</html>

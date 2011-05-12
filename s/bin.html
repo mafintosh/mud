@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>the mudhub</title>
+		<link href='/s/style.css' media='all' rel='stylesheet' type='text/css'/> 
+		<script src='/m/jQuery'></script>
+		<script>
+			var $ = require('jQuery');
+			
+			$(function() {
+				$('input').click(function() {
+					$(this).select();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class='menu'>
+			<nav>
+				<a href='/list'>list all modules</a>
+				<a href='/bin'>install it</a>
+			</nav>
+			<nav>
+				<a href='mailto:m@ge.tt'>contact me</a>
+			</nav>
+		</div>
+		<div class='content'>
+			<header>
+				<h1><a href='/'>the mudhub</a></h1>
+				<i>micro modularize all your js</i>
+			</header>
+			<section>
+				<p>
+					the mud binary is currently available through <a href='http://npmjs.org'>npm</a>.
+				</p>
+			</section>
+			<section>
+				<input readonly value='npm install mud' style='width:180px;'>
+				which binds a global binary and a node.js module
+			</section>
+			<section>
+				<p>
+					the binary can compile code locally as well as running a development server which makes coding your apps super easy. 
+					<i>more helpful documentation to be done</i>.
+				</p>
+			</section>
+		</div>
+	</body>
+</html>
