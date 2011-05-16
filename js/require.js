@@ -1,5 +1,5 @@
 (function() {
-	if (typeof require !== 'undefined' && 0) {
+	if (typeof require !== 'undefined') {
 		return; // define only once
 	}
 	

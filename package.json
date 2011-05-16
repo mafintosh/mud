@@ -1,11 +1,10 @@
 {
  "name":"mud",
- "version":"0.0.3",
+ "version":"0.0.4",
  "description":"A package manager for browser-side JavaScript",
  "author":"Mathias Buus Madsen <m@ge.tt>",
  "bundleDependencies": ["common", "web"],
  "main":"./mud.js",
  "bin":{"mud":"./bin/mud.js"},
- "preferGlobal":true,
- "scripts":{"install":"mkdir -p ~/.mud/js_modules"}
+ "preferGlobal":true
 }

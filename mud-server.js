@@ -5,19 +5,6 @@ var mud = require('./mud');
 var router = web.createRouter();
 var port = parseInt(process.argv[2] || 10000,10);
 
-var load = function(url, callback) {
-	if (/^http:\/\//.test(url)) {
-		require('http').cat(url, callback);
-		return;
-	}
-	if (/^file:\/\//.test(url)) {
-		url = url.replace('file://localhost/', '/').replace('file://', '');		
-		require('fs').readFile(url, 'utf8', callback);
-		return;
-	}
-	callback(new Error('unknown protocol'));
-};
-
 router.get(/^\/dev(?:\?ref=(.*))?$/, function(request, response) {
 	var ref = request.matches[1] ? decodeURIComponent(request.matches[1]) : request.headers.referer;
 	var respond = function(err, src) {
@@ -32,18 +19,16 @@ router.get(/^\/dev(?:\?ref=(.*))?$/, function(request, response) {
 		return;
 	}
 	
-	load(ref, function(err, html) {
-		mud.resolve({source:html, modulesOnly:true}, respond);
-	});
+	mud.resolve(ref, respond);
 });
 router.get(/^\/m\/(.+)/, function(request, response) {
-	mud.resolve({modules:request.matches[1].split(',')}, function(err, src) {
+	mud.resolveModules(request.matches[1].split(','), function(err, src) {
 		response.writeHead(200, {'content-type':'application/javascript'});
-		response.end(src || '');
+		response.end(src || '');		
 	});
 });
 router.get(/^\/g\/(.+)/, function(request, response) {
-	mud.resolve({modules:request.matches[1].split('/'), global:true}, function(err, src) {
+	mud.resolveModules(request.matches[1].split(','), {global:true}, function(err, src) {
 		response.writeHead(200, {'content-type':'application/javascript'});
 		response.end(src || '');		
 	});
