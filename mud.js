@@ -10,7 +10,7 @@ var noop = function() {};
 
 // js file dependencies - used when resolving
 var requireJS = fs.readFileSync(__dirname+'/js/require.js', 'utf8');
-var jsonJS = fs.readFileSync(__dirname+'/js/json.js', 'utf8');
+var jsonJS = fs.readFileSync(__dirname+'/js/JSON.js', 'utf8');
 
 // mud is linked to exports because a lot exports methods are used inside
 var mud = exports;
