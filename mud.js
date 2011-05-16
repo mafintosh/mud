@@ -157,6 +157,12 @@ var resolver = function() {
 	};
 }();
 
+mud.module = function(name, callback) {
+	resolver(common.fork(callback, function(resolve) {
+		resolve(name, callback);
+	}));
+};
+
 // sends the src the Google's closure compiler
 var closure = function(src, type, callback) {
 	type = {simple:'SIMPLE_OPTIMIZATIONS', advanced:'ADVANCED_OPTIMIZATIONS'}[type && type.toString().toLowerCase()] || 'SIMPLE_OPTIMIZATIONS';

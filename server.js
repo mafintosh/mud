@@ -24,10 +24,10 @@ router.put(/^\/r\/([^\/]+\.js$)/i, function(request, response) {
 				fs.writeFile(__dirname+'/js_modules/'+file, mod, next);				
 			},
 			function(next) {				
-				mud.stat(name, next);
+				mud.module(name, next);
 			},
-			function(stat) {
-				response.writeHead(200, {connection:'close', 'x-dependencies':stat.dependencies});
+			function(mod) {
+				response.writeHead(200, {connection:'close', 'x-dependencies':mod.dependencies});
 				response.end();
 			}
 		], function(err) {
@@ -40,7 +40,7 @@ router.get(/^\/r\/([^\/]+\.js$)/i, function(request, response) {
 	var file = request.matches[1];
 	var name = file.split(/\.js$/i)[0];
 	
-	mud.stat(name, function(err, stat) {
+	mud.module(name, function(err, mod) {
 		if (err) {
 			response.writeHead(404);
 			response.end();
@@ -48,10 +48,10 @@ router.get(/^\/r\/([^\/]+\.js$)/i, function(request, response) {
 		}
 		response.writeHead(200, {
 			'content-type':'application/javascript', 
-			'content-length':Buffer.byteLength(stat.src),
-			'x-dependencies':stat.dependencies+''
+			'content-length':Buffer.byteLength(mod.src),
+			'x-dependencies':mod.dependencies+''
 		});
-		response.end(stat.src);
+		response.end(mod.src);		
 	});
 });
 
@@ -60,15 +60,13 @@ router.get('/dev', function(request, response) { // shortcut - TODO: check if re
 	response.end();
 });
 router.get(/^\/g\/(.+)/, function(request, response) { // global modules
-	var modules = request.matches[1].split(',');
-	
-	mud.resolve({modules:modules, global:modules}, function(err, src) {
+	mud.resolveModules(request.matches[1].split(','), {global:true}, function(err, src) {
 		response.writeHead(200, {'content-type':'application/javascript'});
 		response.end(src || '');
 	});
 });
 router.get(/^\/m\/(.+)/, function(request, response) { // regular modules
-	mud.resolve({modules:request.matches[1].split(',')}, function(err, src) {
+	mud.resolveModules(request.matches[1].split(','), function(err, src) {
 		response.writeHead(200, {'content-type':'application/javascript'});
 		response.end(src || '');
 	});
