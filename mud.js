@@ -311,7 +311,7 @@ var crawl = function(location, callback) {
 			result.type = /^\s*</.test(src) ? 'html' : 'js';
 			result.main = src;
 			
-			var scripts = match(src, (/<script .*src=['"](.*)["']>/g)).filter(function(script) {
+			var scripts = result.type === 'js' ? [] : match(src, (/<script .*src=['"](.*)["']>/g)).filter(function(script) {
 				// only same domain url - design decision
 				return !(/\w+:\/\//).test(script);
 			});
