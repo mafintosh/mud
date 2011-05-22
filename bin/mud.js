@@ -34,7 +34,7 @@ var location = function() {
 }();
 
 // additional options here
-var compile = /--compile/.test(args);
+var compile = (/--compile-advanced/.test(args) && 'advanced') || (/--compile/).test(args);
 var fork = /--fork/.test(args);
 var stop = /--stop/.test(args);
 

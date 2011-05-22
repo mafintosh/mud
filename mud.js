@@ -212,6 +212,9 @@ var inlineModules = function(modules, callback) {
 				var missing = {};
 				
 				results.forEach(function(result) {
+					if (!result) {
+						return;
+					}
 					resolved[result.name] = result.src;
 					result.dependencies.forEach(function(dep) {
 						missing[dep] = true;
@@ -242,6 +245,9 @@ var inlineModules = function(modules, callback) {
 			var result = requireJS + '\n' + jsonJS + '\n';
 
 			for (var name in resolved) {
+				if (typeof resolved[name] !== 'string') {
+					continue; // unknown module
+				}
 				result += common.format('require.define("{0}", function(module, exports) {\n{1}\n});\n', name, resolved[name]);
 			}
 
@@ -302,7 +308,7 @@ var crawl = function(location, callback) {
 			cat(location, next);
 		},
 		function(src, next) {
-			result.type = /\s*</.test(src) ? 'html' : 'js';
+			result.type = /^\s*</.test(src) ? 'html' : 'js';
 			result.main = src;
 			
 			var scripts = match(src, (/<script .*src=['"](.*)["']>/g)).filter(function(script) {

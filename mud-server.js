@@ -14,7 +14,7 @@ router.get(/^\/dev(?:\?ref=(.*))?$/, function(request, response) {
 
 	if (!ref) {
 		var host = request.headers.host.split(':')[0]+':'+port;
-		
+
 		respond(null, common.format('document.write(\'<script src="http://{0}/dev?ref=\'+window.location+\'"></script>\');', host));
 		return;
 	}
