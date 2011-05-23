@@ -99,6 +99,10 @@ if (method === 'list') {
 	}));
 	return;
 }
+if (method === 'modules') {
+	mud.resolveModules(location.split(','), {compile:compile}, common.fork(stack, console.log));
+	return;
+}
 if (method === 'inline' && location) {
 	mud.resolve(location, {inline:true, compile:compile}, common.fork(stack, console.log));
 	return;
