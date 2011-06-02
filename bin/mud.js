@@ -32,7 +32,7 @@ var method = function() {
 	if (argv[0] === 'ls') {
 		argv[0] = 'list';
 	}
-	if (argv[0] in {server:1, inline:1, resolve:1, list:1, publish:1, install:1, uninstall:1, update:1}) {
+	if (argv[0] in {server:1, inline:1, resolve:1, list:1, publish:1, install:1, uninstall:1, update:1, help:1, version:1}) {
 		return argv.shift();
 	}
 	return 'resolve';
@@ -182,7 +182,13 @@ var install = function(location, options) {
 	}
 	download();
 };
-
+if (method === 'version') {
+	fs.readFile(__dirname+'/../package.json', 'utf-8', common.fork(stack, function(json) {
+		json = JSON.parse(json);
+		console.log(json.version);
+	}));
+	return;
+}
 if (method === 'install' && location) {
 	install(location, {download:true});
 	return;
@@ -212,3 +218,4 @@ console.error('  uninstall name    - uninstall a module');
 console.error('  modules   a,b,..  - load in these modules');
 console.error('  server            - run a mud server');
 console.error('  list              - list all installed packages');
+console.error('  version           - prints the current version');
