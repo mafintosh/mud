@@ -6,6 +6,7 @@ var common = require('common');
 var http = require('http');
 
 var mud = require('../mud');
+var cat = require('../cat');
 
 var HOME = process.env.HOME;
 
@@ -120,7 +121,7 @@ if (method === 'resolve' && location) {
 if (method === 'publish' && location) {
 	var put = http.request({method:'PUT', path:'/r/'+location.split('/').pop(), host:host, port:port});
 	
-	fs.readFile(location, common.fork(stack, function(buf) {
+	cat(location, common.fork(stack, function(buf) {
 		put.end(buf);
 		put.on('response', function(response) {
 			if (response.statusCode === 200) {
