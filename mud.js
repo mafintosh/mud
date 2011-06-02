@@ -9,8 +9,7 @@ var HOME = process.env.HOME; // probably doesnt work for a windows port
 var noop = function() {};
 
 // js file dependencies - used when resolving
-var requireJS = fs.readFileSync(__dirname+'/js/require.js', 'utf8');
-var jsonJS = fs.readFileSync(__dirname+'/js/JSON.js', 'utf8');
+var requireJS = fs.readFileSync(__dirname+'/require.js', 'utf-8');
 
 // mud is linked to exports because a lot exports methods are used inside
 var mud = exports;
@@ -242,7 +241,7 @@ var inlineModules = function(modules, callback) {
 			resolveAll(resolve, modules, next);
 		},
 		function() {
-			var result = requireJS + '\n' + jsonJS + '\n';
+			var result = requireJS + '\n';
 
 			for (var name in resolved) {
 				if (typeof resolved[name] !== 'string') {

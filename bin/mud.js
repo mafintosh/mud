@@ -15,11 +15,8 @@ var stack = function(err) {
 	console.error(err.stack);
 };
 
-try {
-	exec('mkdir -p ' + HOME + '/.mud/js_modules'); // we need to make the dir for hosting external mud code
-} catch(err) {
-	// do nothing
-}
+// we need to make the dir for hosting external mud code. afterwards we move the included libs to .mud - no overwrites
+exec(common.format('mkdir -p {0}/.mud/js_modules && cp -n {1}/../js_modules/* {0}/.mud/js_modules/', HOME, __dirname));
 
 var argv = process.argv.slice(2);
 var args = argv.join(' ').trim();
