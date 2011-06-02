@@ -96,7 +96,7 @@ router.get('/list', function(request, response) {
 router.get('/bin', '/s/bin.html', router.route);
 router.get('/', '/s/index.html', router.route);
 
-router.listen(8000);
+router.listen(parseInt(process.argv[2] || 8000, 10));
 
 process.on('uncaughtException', function(err) {
 	console.log(err.stack);
