@@ -18,22 +18,37 @@ router.put(/^\/r\/([^\/]+\.js$)/i, function(request, response) {
 	request.on('end', function() {
 		var file = request.matches[1];
 		var name = file.split(/\.js$/i)[0];
-
+		var deps = mud.parseDependencies(mod);
+		
 		common.step([
 			function(next) {
+				mud.list(next);
+			},
+			function(list, next) {
+				var unknowns = [];
+
+				for (var i in deps) {
+					if (list.indexOf(deps[i]) === -1) {
+						unknowns.push(deps[i]);
+					}
+				}
+
+				if (unknowns.length) {
+					response.writeHead(500); // find better status code
+					response.end('Error! unpublished dependencies:\n' + unknowns.join(' ')+'\n');
+					return;
+				}
 				fs.writeFile(__dirname+'/js_modules/'+file, mod, next);				
 			},
-			function(next) {				
-				mud.module(name, next);
-			},
 			function(mod) {
-				response.writeHead(200, {connection:'close', 'x-dependencies':mod.dependencies});
+				response.writeHead(200, {connection:'close'});
 				response.end();
 			}
 		], function(err) {
 			response.writeHead(500, {connection:'close'});
 			response.end();
 		});
+
 	});
 });
 router.get(/^\/r\/([^\/]+\.js$)/i, function(request, response) {

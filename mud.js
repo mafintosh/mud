@@ -89,11 +89,11 @@ mud.list = function(callback) {
 
 			dirs.forEach(function(files) {
 				js = js.concat(files.filter(function(file) {
-					return /.js$/i.test(file);
+					return /\.js$/i.test(file);
 				}));
 			});
 			js.forEach(function(filename) {
-				res[filename.split(/.js$/i)[0]] = true;
+				res[filename.split(/\.js$/i)[0]] = true;
 			});
 
 			callback(null, Object.keys(res));
