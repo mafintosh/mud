@@ -215,12 +215,13 @@ if (method === 'uninstall' && location) {
 
 console.error('usage: mud [option]\n');
 console.error('where the options are:');
-console.error('  resolve?  url     - resolve the given url');
-console.error('  inline    url     - resolve and inline the given url');
-console.error('  install   name    - fetch and install a module + dependencies');
-console.error('  update    name    - update an already installed module');
-console.error('  uninstall name    - uninstall a module');
-console.error('  modules   a,b,..  - load in these modules');
-console.error('  server            - run a mud server');
-console.error('  list              - list all installed packages');
-console.error('  version           - prints the current version');
+console.error('  resolve?  url        - resolve the given url');
+console.error('  inline    url        - resolve and inline the given url');
+console.error('  install   name       - fetch and install a module + dependencies');
+console.error('  publish   alias? url - publish a module');
+console.error('  update    name       - update an already installed module');
+console.error('  uninstall name       - uninstall a module');
+console.error('  modules   a,b,..     - load in these modules');
+console.error('  server               - run a mud server');
+console.error('  list                 - list all installed packages');
+console.error('  version              - prints the current version');
