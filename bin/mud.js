@@ -35,12 +35,15 @@ var method = function() {
 	}
 	return 'resolve';
 }();
-var location = function() {
+
+var namedArg = function() {
 	while (argv.length && (/^--/).test(argv[argv.length-1])) {
 		argv.pop();
 	}
 	return argv.pop();
-}();
+};
+
+var location = namedArg();
 
 // additional options here
 var compile = (/--compile-advanced/.test(args) && 'advanced') || (/--compile/).test(args);
@@ -119,7 +122,11 @@ if (method === 'resolve' && location) {
 	return;
 }
 if (method === 'publish' && location) {
-	var put = http.request({method:'PUT', path:'/r/'+location.split('/').pop(), host:host, port:port});
+	var publishName = namedArg();
+	
+	publishName = publishName ? publishName.split(/\.js$/i)[0]+'.js' : location.split('/').pop();
+	
+	var put = http.request({method:'PUT', path:'/r/'+publishName, host:host, port:port});
 	
 	cat(location, common.fork(stack, function(buf) {
 		put.end(buf);
