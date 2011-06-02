@@ -30,7 +30,7 @@ var method = function() {
 	if (argv[0] === 'ls') {
 		argv[0] = 'list';
 	}
-	if (argv[0] in {server:1, inline:1, resolve:1, list:1, publish:1, install:1, uninstall:1, update:1, help:1, version:1}) {
+	if (argv[0] in {server:1, inline:1, resolve:1, list:1, publish:1, install:1, uninstall:1, update:1, help:1, version:1, modules:1}) {
 		return argv.shift();
 	}
 	return 'resolve';
@@ -47,6 +47,7 @@ var location = namedArg();
 
 // additional options here
 var compile = (/--compile-advanced/.test(args) && 'advanced') || (/--compile/).test(args);
+var global = /--global/.test(args);
 var fork = /--fork/.test(args);
 var stop = /--stop/.test(args);
 
@@ -110,7 +111,7 @@ if (method === 'list') {
 	return;
 }
 if (method === 'modules') {
-	mud.resolveModules(location.split(','), {compile:compile}, common.fork(stack, console.log));
+	mud.resolveModules(location.split(','), {compile:compile, global:global}, common.fork(stack, console.log));
 	return;
 }
 if (method === 'inline' && location) {
@@ -215,13 +216,13 @@ if (method === 'uninstall' && location) {
 
 console.error('usage: mud [option]\n');
 console.error('where the options are:');
-console.error('  resolve?  url        - resolve the given url');
-console.error('  inline    url        - resolve and inline the given url');
-console.error('  install   name       - fetch and install a module + dependencies');
-console.error('  publish   alias? url - publish a module');
-console.error('  update    name       - update an already installed module');
-console.error('  uninstall name       - uninstall a module');
-console.error('  modules   a,b,..     - load in these modules');
-console.error('  server               - run a mud server');
-console.error('  list                 - list all installed packages');
-console.error('  version              - prints the current version');
+console.error('  [resolve]  url         - resolve the given url');
+console.error('  inline     url         - resolve and inline the given url');
+console.error('  install    name        - fetch and install a module + dependencies');
+console.error('  publish    [alias] url - publish a module');
+console.error('  update     name        - update an already installed module');
+console.error('  uninstall  name        - uninstall a module');
+console.error('  modules    a,b,..      - load in these modules');
+console.error('  server                 - run a mud server');
+console.error('  list                   - list all installed packages');
+console.error('  version                - prints the current version');
