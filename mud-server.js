@@ -1,6 +1,7 @@
 var web = require('web');
 var common = require('common');
 var mud = require('./mud');
+var markdoc = require('markdoc');
 
 var router = web.createRouter();
 var port = parseInt(process.argv[2] || 10000,10);
@@ -20,6 +21,12 @@ router.get(/^\/dev(?:\?ref=(.*))?$/, function(request, response) {
 	}
 	
 	mud.resolve(ref, respond);
+});
+router.get(/^\/d\/(.+)/, function(request, response) {
+	mud.module(request.matches[1].split(/\.js$/i)[0], function(err, module) {
+		response.writeHead(200, {'content-type':'text/html'});
+		response.end(markdoc.parseCode(module.src));
+	});
 });
 router.get(/^\/m\/(.+)/, function(request, response) {
 	mud.resolveModules(request.matches[1].split(','), function(err, src) {

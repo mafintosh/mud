@@ -86,6 +86,12 @@ router.get(/^\/m\/(.+)/, function(request, response) { // regular modules
 		response.end(src || '');
 	});
 });
+router.get(/^\/d\/(.+)/, function(request, response) {
+	mud.module(request.matches[1].split(/\.js$/i)[0], function(err, module) {
+		response.writeHead(200, {'content-type':'text/html'});
+		response.end(markdoc.parseCode(module.src));
+	});
+});
 
 router.get('/list', function(request, response) {
 	mud.list(function(err, list) {
