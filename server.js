@@ -1,4 +1,5 @@
 var common = require('common');
+var markdoc = require('markdoc');
 var web = require('web');
 var fs = require('fs');
 
