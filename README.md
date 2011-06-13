@@ -1,4 +1,4 @@
-# mud
+# Mud
 Mud is a simple browser Javascript package manager written in Node.js
 
 It is available through `npm`:
@@ -28,7 +28,7 @@ These dependencies can come from inlined Javascript as in the example or from Ja
 In the above example it finds a dependency for `foo`. The server then looks for a file `foo.js` inside folders named `js_modules` or `shared_modules`.
 It starts by looking in the same server it was started and then moves towards `/` until it finds `foo.js`.
 
-# modules
+# Modules
 
 Modules can be written using a global variable named the same as the file (fx `window.foo` if the file is named `foo.js`) or by using Common.JS syntax as in node.js
 
@@ -40,6 +40,6 @@ Modules can be written using a global variable named the same as the file (fx `w
 		return 'lolz';
 	};
 
-# help
+# Help
 
 Run `mud help` to get a full list of all the available commands
