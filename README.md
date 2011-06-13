@@ -11,7 +11,7 @@ It does this by analyzing dependencies in your code and looks for the valid modu
 Say you have a html file that looks like this:
 
 	<html><head>
-		<script src='http://localhost:10000/dev></script>
+		<script src='http://localhost:10000/dev'></script>
 		<script>
 			var foo = require('foo');
 			
