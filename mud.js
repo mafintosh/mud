@@ -103,10 +103,10 @@ mud.list = function(callback) {
 // build a function that caches the current directory tree and bind name -> cache[name] -> module
 var resolver = function() {
 	var cache = {};
-	
+
 	var find = function(dirs, name, callback) {
 		var module;
-		
+
 		common.step([
 			function(next) {
 				var crawl = function(p) {
@@ -114,10 +114,10 @@ var resolver = function() {
 						callback();
 						return;
 					}
-					var stat = function(loc, nextLoc) {
+					var callStat = function(loc, nextLoc) {
 						fs.stat(loc, function(err, stat) {
 							if (err && nextLoc) {
-								stat(nextLoc);
+								callStat(nextLoc);
 								return;
 							}
 							if (err) {
@@ -128,7 +128,7 @@ var resolver = function() {
 						});						
 					};
 					
-					stat(path.join(dirs[p], name+'.js'), path.join(dirs[p], name+'/index.js'));
+					callStat(path.join(dirs[p], name+'.js'), path.join(dirs[p], name+'/index.js'));
 				};
 				crawl(0);		
 			},
@@ -356,7 +356,7 @@ mud.resolve = function(location, options, callback) {
 		function(result, next) {
 			main = result.main;
 			type = result.type;
-			
+
 			inlineModules(result.modules, next);
 		},
 		function(result, next) {
