@@ -1,9 +1,8 @@
 {
  "name":"mud",
- "version":"0.1.5",
+ "version":"0.1.6",
  "description":"A package manager for browser-side JavaScript",
  "author":"Mathias Buus Madsen <m@ge.tt>",
- "bundleDependencies": ["common", "web"],
  "main":"./mud.js",
  "bin":{"mud":"./bin/mud.js"},
  "preferGlobal":true

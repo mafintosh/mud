@@ -114,15 +114,21 @@ var resolver = function() {
 						callback();
 						return;
 					}
-					var loc = path.join(dirs[p], name+'.js');
-
-					fs.stat(loc, function(err, stat) {
-						if (err) {
-							crawl(p+1);
-							return;
-						}
-						next(null, {modified:stat.mtime.getTime(), path:loc});
-					});
+					var stat = function(loc, nextLoc) {
+						fs.stat(loc, function(err, stat) {
+							if (err && nextLoc) {
+								stat(nextLoc);
+								return;
+							}
+							if (err) {
+								crawl(p+1);
+								return;
+							}
+							next(null, {modified:stat.mtime.getTime(), path:loc});
+						});						
+					};
+					
+					stat(path.join(dirs[p], name+'.js'), path.join(dirs[p], name+'/index.js'));
 				};
 				crawl(0);		
 			},
